@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Claude Helper
 
-## Getting Started
+클로드 코드를 사용하는 **입문자·숙련자** 모두에게 도움이 되도록 만든 **가이드 웹앱**입니다. (Next.js)
 
-First, run the development server:
+## 로컬에서 실행하기
+
+패키지 설치 후 개발 서버를 띄웁니다.
+
+```bash
+pnpm install
+pnpm dev
+```
+
+브라우저에서 [http://localhost:3000](http://localhost:3000) 을 열면 화면을 볼 수 있습니다.
+
+다른 패키지 매니저를 쓰는 경우:
 
 ```bash
 npm run dev
-# or
+# 또는
 yarn dev
-# or
-pnpm dev
-# or
+# 또는
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 폴더 안내
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **`src/app/`** — 페이지·라우트 (코스, 로드맵, 명령어 모음 등)
+- **`src/data/`** — 학습·가이드용 데이터
+- **`src/components/`** — 헤더·푸터·퀴즈·UI 컴포넌트
+- **`sc/README.md`** — SuperClaude `sc` 슬래시 명령 설명 (한글)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## SuperClaude `sc` 명령어 문서
 
-## Learn More
+패키지 배포용 슬래시 명령(`~/.claude/commands/sc/`)에 대한 한글 정리는 다음 파일을 보세요.
 
-To learn more about Next.js, take a look at the following resources:
+- **[sc/README.md](./sc/README.md)**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 배포
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Next.js 앱은 [Vercel](https://vercel.com) 등에 올리기 쉽습니다. 자세한 내용은 [Next.js 배포 문서](https://nextjs.org/docs/app/building-your-application/deploying)를 참고하세요.
 
-## Deploy on Vercel
+## 라이선스·기여
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+저장소 정책에 맞게 이슈·PR을 남겨 주세요.
