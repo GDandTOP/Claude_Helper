@@ -1,117 +1,154 @@
 # Claude Helper
 
-**Claude Code**를 처음 쓰는 사람부터 고급 기능까지, 한 화면에서 **학습·복습**할 수 있도록 만든 **Next.js** 기반 가이드 웹앱입니다.
+> Claude Code **CLI**와 **Desktop**을 주제로 한 학습용 웹 가이드입니다.  
+> 초급·고급 코스, 강의별 퀴즈, 로드맵, 명령·기능 모음을 한 사이트에서 다룹니다.
 
-저장소: [github.com/GDandTOP/Claude_Helper](https://github.com/GDandTOP/Claude_Helper)
+**저장소:** [github.com/GDandTOP/Claude_Helper](https://github.com/GDandTOP/Claude_Helper)
 
 ---
 
-## 이 프로젝트로 할 수 있는 일
+## 목차
 
-| 영역 | 설명 |
+1. [누구를 위한 프로젝트인가](#누구를-위한-프로젝트인가)  
+2. [제공 기능](#제공-기능)  
+3. [페이지와 URL](#페이지와-url)  
+4. [기술 스택](#기술-스택)  
+5. [시작하기](#시작하기)  
+6. [스크립트](#스크립트)  
+7. [소스 구조](#소스-구조)  
+8. [학습 진행 데이터](#학습-진행-데이터)  
+9. [배포](#배포)  
+10. [추가 문서](#추가-문서)
+
+---
+
+## 누구를 위한 프로젝트인가
+
+- Claude Code를 **처음 설치·실행**하는 사람  
+- 슬래시 명령, MCP, Hooks 등 **고급 주제**까지 정리해서 보고 싶은 사람  
+- 문서만 읽기보다 **강·퀴즈 순서**로 따라가는 쪽을 선호하는 사람  
+
+웹 앱이므로 별도 백엔드 계정 없이 브라우저만으로 둘러볼 수 있습니다.
+
+---
+
+## 제공 기능
+
+- **초급·고급 코스** 각 10강(예상 시간·주제는 `src/data/courses.ts` 기준)  
+- **강의 페이지**에서 본문과 함께 **퀴즈**로 이해도 확인  
+- **홈**에서 코스별 완료율 등 진행 상황 요약  
+- **로드맵**으로 학습 흐름을 한 번에 조망  
+- **명령어 모음·기능 소개** 전용 페이지로 빠른 참조  
+
+---
+
+## 페이지와 URL
+
+| 경로 | 역할 |
 |------|------|
-| **코스** | **초급·고급** 두 트랙, 각 **10강** 단위로 Claude Code CLI·Desktop·워크플로를 단계별로 안내합니다. |
-| **강의 페이지** | 트랙·강 ID 기반 라우트(`/course/...`)에서 본문·퀴즈를 함께 제공합니다. |
-| **진행률** | 브라우저 **localStorage**에 완료·퀴즈 점수 등을 저장해 이어서 학습할 수 있습니다. |
-| **로드맵** | 학습 순서와 큰 그림을 한눈에 볼 수 있는 화면입니다. |
-| **명령어·기능** | 자주 쓰는 명령·기능을 모아 둔 전용 페이지(`/commands`, `/features`)가 있습니다. |
+| `/` | 메인: 코스 카드, 진행률, 주요 섹션 안내 |
+| `/course/beginner` · `/course/advanced` | 트랙별 강 목록 |
+| `/course/beginner/01` 등 | 강의 상세·퀴즈 (`[track]` / `[lessonId]`) |
+| `/roadmap` | 로드맵 |
+| `/commands` | 명령어 참고 |
+| `/features` | 기능 소개 |
 
 ---
 
 ## 기술 스택
 
-| 구분 | 사용 |
-|------|------|
-| 프레임워크 | **Next.js 16** (App Router) |
-| UI | **React 19**, **Tailwind CSS 4** |
-| 컴포넌트 | **Base UI**, **shadcn/ui** 스타일 유틸(`class-variance-authority`, `clsx`, `tailwind-merge`) |
-| 아이콘 | **lucide-react** |
-| 언어 | **TypeScript 5** |
+- **프레임워크:** Next.js 16 (App Router)  
+- **UI:** React 19, Tailwind CSS 4  
+- **컴포넌트:** Base UI, shadcn/ui 유틸(`shadcn` 패키지, `class-variance-authority`, `clsx`, `tailwind-merge`)  
+- **아이콘:** lucide-react  
+- **타입:** TypeScript 5  
+- **품질:** ESLint (`eslint-config-next`)
 
 ---
 
-## 사전 요구 사항
+## 시작하기
 
-- **Node.js** — Next 16과 호환되는 버전(권장: 현재 LTS)
-- 패키지 매니저: **`pnpm`** 권장(저장소에 `pnpm-lock.yaml` 포함). `npm` / `yarn` / `bun`도 사용 가능합니다.
-
----
-
-## 설치와 실행
-
-저장소를 받은 뒤 프로젝트 루트에서:
+**필요:** Node.js(Next 16과 호환되는 버전, LTS 권장)
 
 ```bash
+git clone https://github.com/GDandTOP/Claude_Helper.git
+cd Claude_Helper
 pnpm install
 pnpm dev
 ```
 
-개발 서버가 뜨면 브라우저에서 **http://localhost:3000** 으로 접속합니다.
+브라우저에서 **http://localhost:3000** 을 엽니다.
 
-다른 패키지 매니저 예시:
+`pnpm` 대신 아래도 가능합니다.
 
 ```bash
 npm install && npm run dev
-# 또는
-yarn && yarn dev
 ```
 
 ---
 
-## npm 스크립트
+## 스크립트
 
 | 명령 | 설명 |
 |------|------|
-| `pnpm dev` | 개발 서버 (핫 리로드) |
-| `pnpm build` | 프로덕션 빌드 |
+| `pnpm dev` | 개발 서버 |
+| `pnpm build` | 프로덕션 빌드(배포 전 확인용으로 권장) |
 | `pnpm start` | 빌드 결과 실행 |
-| `pnpm lint` | ESLint 검사 |
+| `pnpm lint` | ESLint |
 
 ---
 
-## 디렉터리 구조 (요약)
+## 소스 구조
 
 ```
-src/
-├── app/                 # 라우트·페이지 (홈, 코스, 로드맵, commands, features 등)
-├── components/          # 헤더·푸터·퀴즈·UI 컴포넌트
-├── data/                # 코스 메타·강별 콘텐츠·로드맵·명령어 데이터
-└── lib/                 # 진행률(localStorage) 등 유틸
-sc/
-└── README.md            # SuperClaude `sc` 슬래시 명령 설명 (한글)
-public/                  # 정적 자산
+├── public/                 # 정적 파일
+├── sc/
+│   └── README.md           # SuperClaude 슬래시 명령 설명(한글)
+├── src/
+│   ├── app/                # App Router 페이지
+│   │   ├── page.tsx        # 홈
+│   │   ├── course/[track]/ # 트랙·강 ID
+│   │   ├── roadmap/
+│   │   ├── commands/
+│   │   └── features/
+│   ├── components/         # 레이아웃·퀴즈·UI
+│   ├── data/               # 코스·강 콘텐츠·로드맵·명령·기능 데이터
+│   └── lib/                # 진행률·유틸
+├── package.json
+├── pnpm-lock.yaml
+└── next.config.ts
 ```
 
 ---
 
-## 환경 변수
+## 학습 진행 데이터
 
-로컬 가이드 앱만 실행하는 경우 **별도 `.env` 없이** 동작하도록 구성되어 있습니다.  
-배포 시 외부 API를 붙인다면 `.env*` 규칙에 맞춰 추가하면 됩니다(`.gitignore`에 기본적으로 제외됨).
+강 완료·퀴즈 점수 등은 브라우저 **localStorage**에 저장됩니다.  
+같은 기기·같은 브라우저에서 이어서 학습할 때 유지되며, 시크릿 모드나 다른 기기로는 공유되지 않습니다.
 
 ---
 
 ## 배포
 
-Next.js 앱이므로 **Vercel**, **Netlify**, 자체 Node 호스팅 등 일반적인 Next 배포 방식을 그대로 쓸 수 있습니다.  
-공식 가이드: [Next.js — 배포](https://nextjs.org/docs/app/building-your-application/deploying)
+정적 호스팅이 아니라 **Next.js 서버**가 필요합니다.  
+[Vercel](https://vercel.com) 등에 Git 연동으로 올리는 방식이 일반적입니다.  
+자세한 절차는 [Next.js 배포 문서](https://nextjs.org/docs/app/building-your-application/deploying)를 참고하세요.
 
 ---
 
-## 관련 문서
+## 추가 문서
 
-- **[SuperClaude `sc` 명령어 (한글)](./sc/README.md)** — Cursor `/sc/README`와 연결된 슬래시 명령 묶음 설명
-
----
-
-## 기여와 라이선스
-
-이슈·PR은 환영합니다. 브랜치 전략·코딩 스타일은 기존 코드와 맞춰 주시면 됩니다.  
-라이선스는 저장소에 `LICENSE`가 추가되면 그에 따릅니다. (미설정 시 조직·개인 정책에 맞게 추가하세요.)
+- **[sc/README.md](./sc/README.md)** — SuperClaude `sc` 슬래시 명령 묶음(한글)
 
 ---
 
-## 참고 링크
+## 기여
 
-- [Next.js 문서](https://nextjs.org/docs)
-- [React 문서](https://react.dev)
+버그 제보·문서 수정·콘텐츠 보완은 이슈와 PR로 환영합니다.  
+변경은 가능한 한 작은 단위로 나누고, 기존 스타일·데이터 구조를 맞춰 주시면 리뷰가 수월합니다.
+
+---
+
+## 라이선스
+
+이 저장소에 `LICENSE` 파일이 없다면, 사용·재배포 조건은 저장소 소유자에게 문의하거나 필요 시 `LICENSE`를 추가하세요.
